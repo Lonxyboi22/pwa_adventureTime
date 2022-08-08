@@ -28,22 +28,9 @@ const indexedDB =
 
 let db;
 
-/*
-  TODO: Let's create a few variables for stuff we'll be referencing throughout the 
-  code below. We'll create a variable for the database itself, and for the Object 
-  Store in that database. An ObjectStore is sort of like a database table.
+const database = "budget"
+const objectStore = "transactions"
 
-  For the database, I recommend something like "budget".
-  For the object store, something like "transactions".
-*/
-
-const database = "your-variable-name-here"
-const objectStore = "your-variable-name-here"
-
-/*
-  INFO: Here we tell indexedDb to open (or create) whatever database we 
-  want to work with. The 1 is sort of like a versioning indicator.
-*/
 const request = indexedDB.open(database, 1);
 
 /*
@@ -68,13 +55,13 @@ request.onsuccess = ({ target }) => {
   db = target.result;
   // check if app is online before reading from db
   if (navigator.onLine) {
-    // method goes here
+   checkDatabase()
   }
 };
 
 /* INFO: Simple error handler. Nothing to see here. Move along. */
 request.onerror = function(event) {
-  console.log("Woops! " + event.target.errorCode);
+  console.log("Woops! You f***ed up here:" + event.target.errorCode);
 };
 
 /*
@@ -86,8 +73,8 @@ request.onerror = function(event) {
   variable.
 */
 function saveRecord(record) {
-  const transaction = db.transaction(["OBJECT_STORE"], "readwrite");
-  const store = transaction.objectStore("OBJECT_STORE");
+  const transaction = db.transaction([objectStore], "readwrite");
+  const store = transaction.objectStore(objectStore);
   store.add(record);
 }
 
@@ -104,8 +91,8 @@ function saveRecord(record) {
   variable.
 */
 function checkDatabase() {
-  const transaction = db.transaction(["OBJECT_STORE"], "readwrite");
-  const store = transaction.objectStore("OBJECT_STORE");
+  const transaction = db.transaction([objectStore], "readwrite");
+  const store = transaction.objectStore(objectStore);
   const getAll = store.getAll();
 
   getAll.onsuccess = function() {
@@ -120,7 +107,7 @@ function checkDatabase() {
         TODO: Insert the route name specified above.
       */
 
-      fetch("INSERT_UPDATE_ROUTE_NAME_HERE", {
+      fetch("/api/transaction/bulk", {
         method: "POST",
         body: JSON.stringify(getAll.result),
         headers: {

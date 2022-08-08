@@ -19,7 +19,8 @@ const FILES_TO_CACHE = [
   "/",
   "./index.html",
   "./css/styles.css",
-  // TODO: add the two files in the js directory
+  "./js/idb.js",
+  "./js/index.js",
   "./manifest.json",
   "./icons/icon-72x72.png",
   "./icons/icon-96x96.png",

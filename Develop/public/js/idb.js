@@ -68,9 +68,6 @@ request.onerror = function(event) {
   INFO: This method is called whenever it's time to save some data 
   to indexedDB. It's called from the index.js file anytime there is 
   an error saving to the server.
-
-  TODO: replace the string named "OBJECT_STORE" with the objectStore 
-  variable.
 */
 function saveRecord(record) {
   const transaction = db.transaction([objectStore], "readwrite");
@@ -86,9 +83,6 @@ function saveRecord(record) {
   we need to to a bulk upodate. This name of this route is:
 
   /api/transaction/bulk
-
-  TODO: replace the string named "OBJECT_STORE" with the objectStore 
-  variable.
 */
 function checkDatabase() {
   const transaction = db.transaction([objectStore], "readwrite");
